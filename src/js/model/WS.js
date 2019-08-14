@@ -3,6 +3,8 @@ import { w3cwebsocket as W3CWebSocket } from "websocket";
 
 const popupIcon = require('../../images/messageIcon.png');
 
+let arr = [];
+
 export default class WebSocketModel {
     constructor(url, messageArea, statusConnection, messageForm, connectBtn) {
         this.url = url;
@@ -17,7 +19,7 @@ export default class WebSocketModel {
 
     start() {
         this.ws = new W3CWebSocket(this.url);
-        this.ws.onopen = () => this.openWS();
+        this.ws.onopen = () => this.openWS(this.ws);
         this.ws.onmessage = (event) => this.getMessage(event);
         this.ws.onclose = () => this.closeWS();
         this.listenConnect = this.changeStatus.bind(null, this);
@@ -33,8 +35,16 @@ export default class WebSocketModel {
             : this.statusConnection.classList.remove('error-status');
     }
 
-    openWS() {
+    openWS(ws) {
         this.setStatus('ONLINE');
+        if (localStorage.getItem('messages')) {
+            let oldMessages = JSON.parse(localStorage.getItem('messages'));
+            let username = localStorage.getItem('active');
+            oldMessages.forEach((i)=>{
+                ws.send(`{"from": "${username}", "message": "${i}"}`);
+            });
+            localStorage.removeItem('messages');
+        }
     }
 
     closeWS() {
@@ -114,6 +124,12 @@ export default class WebSocketModel {
             const messageInput = event.currentTarget.querySelector('.message-input');
             const username = event.currentTarget.querySelector('.nickname').textContent;
             ws.send(`{"from": "${username}", "message": "${messageInput.value}"}`);
+            messageInput.value = '';
+        }
+        else {
+            const messageInput = event.currentTarget.querySelector('.message-input');
+             arr.push(messageInput.value);
+            localStorage.setItem('messages', JSON.stringify(arr));
             messageInput.value = '';
         }
     }

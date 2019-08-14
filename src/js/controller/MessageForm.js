@@ -20,6 +20,7 @@ export default class MessageFormController {
         that.ws.connectionValue = true;
         that.chat.messageForm.removeEventListener('submit', that.listenLogout);
         that.parent.removeChild(that.chat.messageForm);
+        localStorage.removeItem('messages');
         new RegistrationFormController(that.parent, that.url);
     }
 };
