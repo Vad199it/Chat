@@ -130,6 +130,7 @@ export default class WebSocketModel {
             const messageInput = event.currentTarget.querySelector('.message-input');
              arr.push(messageInput.value);
             localStorage.setItem('messages', JSON.stringify(arr));
+            arr = [];
             messageInput.value = '';
         }
     }
