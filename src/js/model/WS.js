@@ -44,6 +44,7 @@ export default class WebSocketModel {
                 ws.send(`{"from": "${username}", "message": "${i}"}`);
             });
             localStorage.removeItem('messages');
+            arr = [];
         }
     }
 
@@ -128,9 +129,11 @@ export default class WebSocketModel {
         }
         else {
             const messageInput = event.currentTarget.querySelector('.message-input');
+            if (JSON.parse(localStorage.getItem('messages')) === []){
+                arr = [];
+            }
              arr.push(messageInput.value);
             localStorage.setItem('messages', JSON.stringify(arr));
-            arr = [];
             messageInput.value = '';
         }
     }

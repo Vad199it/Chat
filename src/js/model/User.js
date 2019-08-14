@@ -5,5 +5,6 @@ export default class User {
 
     setToStorage() {
         localStorage.setItem('active', `${this.nickname}`);
+        localStorage.setItem('messages', JSON.stringify([]));
     }
 };
