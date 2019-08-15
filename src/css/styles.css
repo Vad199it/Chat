@@ -191,8 +191,12 @@ html, body, #root, .App {
 }
 
 .message-content {
-    font-family: Bradley Hand, cursive;
-    margin-left: 1%;
+    font-family: Arial, cursive;
+    border-radius: 10px;
+    background: rgba(204, 204, 204, 0.51);
+    display: inline-block;
+    max-width: 40%;
+    padding: 8px 12px 8px 12px;
 }
 
 .message-time {
@@ -258,12 +262,56 @@ html, body, #root, .App {
 
 .message-li {
     list-style: none;
-    margin: 1% 1% 1% 2%;
+    margin: 1%;
     font-size: 16px;
     border-radius: 5px;
+
+}
+
+.my-message-li{
+    position: relative;
+    list-style: none;
+    margin-left: auto;
+    margin-right: 0;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 12px;
+
+}
+
+.my-message-li .message-content{
+    display: inline-block;
+    color: black;
+    font-family: Bradley Hand, cursive;
+    border-radius: 10px;
+    background: rgba(115, 25, 225, 0.12);
+    max-width: 20em;
+    padding: 8px 12px 8px 12px;
+    float: right;
 }
 
 .message-info {
     display: flex;
     justify-content: space-between;
+}
+
+.my-message-li .message-info .message-name{
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.my-message-li .message-time {
+    text-align: right;
+    margin-top: 1em;
+}
+
+.message-content-error {
+    display: inline-block;
+    color: black;
+    font-family: Bradley Hand, cursive;
+    border-radius: 10px;
+    max-width: 20em;
+    padding: 8px 12px 8px 12px;
+    float: right;
+    background: rgba(255, 11, 0, 0.76);
 }

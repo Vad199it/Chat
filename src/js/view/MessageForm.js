@@ -46,6 +46,7 @@ export default class MessageForm {
         this.messageSubmit.textContent = 'Send';
         this.messageInput.setAttribute('autofocus', true);
         this.messageInput.setAttribute('required', true);
+        this.messageInput.setAttribute('maxlength', 150);
         return this;
     }
 };

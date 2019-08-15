@@ -89,23 +89,39 @@ export default class WebSocketModel {
     }
 
     printMessage(name, time, message) {
-        const li = new DomNode('li').addClass('message-li');
+        let li;
         const divNameTime = new DomNode('div').addClass('message-info');
         const spanName = new DomNode('span').addClass('message-name');
-        const spanTime = new DomNode('span').addClass('message-time');
-        const divMessage = new DomNode('div').addClass('message-content');
+        const spanTime = new DomNode('div').addClass('message-time');
+        let divMessage = new DomNode('div').addClass('message-content');
+        if (localStorage.getItem('active') === name){
+            if (time === "⚠") {
+                divMessage = new DomNode('div').addClass('message-content-error');
+            }
+            li = new DomNode('li').addClass('my-message-li');
 
-        let date = new Date(time);
-        date = date.toLocaleTimeString();
+        }
+        else {
+            li = new DomNode('li').addClass('message-li');
+        }
+        let date;
+
+        if(time === "⚠"){
+            date = "⚠";
+        }
+        else {
+            date = new Date(time);
+            date = date.toLocaleTimeString();
+        }
 
         spanName.textContent = name || 'аноним';
         spanTime.textContent = date;
         divMessage.textContent = message;
 
         divNameTime.appendChild(spanName);
-        divNameTime.appendChild(spanTime);
         li.appendChild(divNameTime);
         li.appendChild(divMessage);
+        li.appendChild(spanTime);
         this.messageArea.appendChild(li);
     }
 
@@ -119,7 +135,7 @@ export default class WebSocketModel {
         }
     }
 
-    sendMessage(ws, event) {
+    sendMessage = (ws, event) => {
         event.preventDefault();
         if (event.currentTarget.querySelector('.status').textContent === 'ONLINE') {
             const messageInput = event.currentTarget.querySelector('.message-input');
@@ -132,8 +148,11 @@ export default class WebSocketModel {
             if (JSON.parse(localStorage.getItem('messages')) === []){
                 arr = [];
             }
-             arr.push(messageInput.value);
+            arr.push(messageInput.value);
             localStorage.setItem('messages', JSON.stringify(arr));
+            const username = event.currentTarget.querySelector('.nickname').textContent;
+            this.printMessage(username,"⚠", messageInput.value);
+            this.messageArea.scrollTop = this.messageArea.scrollHeight;
             messageInput.value = '';
         }
     }
