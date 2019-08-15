@@ -302,16 +302,37 @@ html, body, #root, .App {
 
 .my-message-li .message-time {
     text-align: right;
-    margin-top: 1em;
+    margin-top: 3em;
 }
 
-.message-content-error {
+.my-message-li-error .message-content {
     display: inline-block;
     color: black;
-    font-family: Bradley Hand, cursive;
+    font-family: Arial, cursive;
     border-radius: 10px;
     max-width: 20em;
     padding: 8px 12px 8px 12px;
     float: right;
     background: rgba(255, 11, 0, 0.76);
+}
+
+.my-message-li-error .message-time{
+    text-align: right;
+    margin-top: 3em;
+}
+
+.my-message-li-error .message-info .message-name{
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.my-message-li-error {
+    position: relative;
+    list-style: none;
+    margin-left: auto;
+    margin-right: 0;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 12px;
+
 }

@@ -40,6 +40,11 @@ export default class WebSocketModel {
         if (localStorage.getItem('messages')) {
             let oldMessages = JSON.parse(localStorage.getItem('messages'));
             let username = localStorage.getItem('active');
+            let errorMessages = document.getElementsByClassName('my-message-li-error');
+            while(errorMessages[0]) {
+                errorMessages[0].parentNode.removeChild(errorMessages[0]);
+            }
+            //errorMessages.remove();
             oldMessages.forEach((i)=>{
                 ws.send(`{"from": "${username}", "message": "${i}"}`);
             });
@@ -93,13 +98,10 @@ export default class WebSocketModel {
         const divNameTime = new DomNode('div').addClass('message-info');
         const spanName = new DomNode('span').addClass('message-name');
         const spanTime = new DomNode('div').addClass('message-time');
-        let divMessage = new DomNode('div').addClass('message-content');
+        const divMessage = new DomNode('div').addClass('message-content');
         if (localStorage.getItem('active') === name){
-            if (time === "⚠") {
-                divMessage = new DomNode('div').addClass('message-content-error');
-            }
-            li = new DomNode('li').addClass('my-message-li');
-
+            if (time === "⚠") li = new DomNode('li').addClass('my-message-li-error');
+            else li = new DomNode('li').addClass('my-message-li');
         }
         else {
             li = new DomNode('li').addClass('message-li');
